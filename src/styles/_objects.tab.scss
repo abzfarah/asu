@@ -1,0 +1,52 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.tab {
+  padding: 0 halve($inuit-base-spacing-unit);
+
+  @include media-query(palm) {
+    padding: quarter($inuit-base-spacing-unit);
+  }
+
+  .tabs--justify-start &:first-of-type,
+  .tabs--justify-end &:first-of-type {
+    padding-left: 0;
+  }
+
+  .tabs--justify-start &:last-of-type,
+  .tabs--justify-end &:last-of-type {
+    padding-right: 0;
+  }
+
+  .tabs--responsive &:first-of-type,
+  .tabs--responsive &:last-of-type {
+    @include media-query(palm) {
+      padding-left: halve($inuit-base-spacing-unit);
+      padding-right: halve($inuit-base-spacing-unit);
+    }
+  }
+}
+
+.tab__label {
+  display: inline-block;
+  cursor: pointer;
+  padding-bottom: quarter($inuit-base-spacing-unit) + $active-border-width;
+  color: $secondary-text-color;
+  border-bottom: $active-border-width solid transparent;
+
+  @include media-query(palm) {
+    padding-bottom: quarter($inuit-base-spacing-unit);
+  }
+}
+
+.tab--active {
+  .tab__label {
+    color: $hover-text-color;
+    border-color: $hover-text-color;
+  }
+}
+
+.tab:hover:not(.tab--active) {
+  .tab__label {
+    border-color: $border-color;
+  }
+}

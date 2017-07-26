@@ -1,0 +1,211 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import classnames from 'classnames';
+import Box from './Box';
+import Props from '../utils/Props';
+import CSSClassnames from '../utils/CSSClassnames';
+
+const CLASS_ROOT = CSSClassnames.FOOTER;
+
+export default class Footer extends Component {
+
+  constructor (props, context) {
+super(props, context);
+  this._alignMirror = this._alignMirror.bind(this);
+  this._onResize = this._onResize.bind(this);
+}
+
+  componentDidMount () {
+  if (this.props.fixed) {
+  this._alignMirror();
+  window.addEventListener('resize', this._onResize);
+}
+}
+
+  componentDidUpdate () {
+  if (this.props.fixed) {
+  this._alignMirror();
+}
+}
+
+  componentWillUnmount () {
+  if (this.props.fixed) {
+  window.removeEventListener('resize', this._onResize);
+}
+}
+
+  _onResize () {
+  this._alignMirror();
+}
+
+  _alignMirror () {
+  var contentElement = ReactDOM.findDOMNode(this.contentRef);
+  var mirrorElement = this.mirrorRef;
+
+  // constrain fixed content to the width of the mirror
+  var mirrorRect = mirrorElement.getBoundingClientRect();
+  contentElement.style.width = `${Math.floor(mirrorRect.width)}px`;
+
+  // align the mirror height with the content's height
+  var contentRect = contentElement.getBoundingClientRect();
+  mirrorElement.style.height = `${Math.floor(contentRect.height)}px`;
+}
+
+  render () {
+  const {
+    children, className, colorIndex, fixed, float, primary, size
+  } = this.props;
+  const restProps = Props.omit(this.props, Object.keys(Footer.propTypes));
+  const classes = classnames(
+      CLASS_ROOT,
+      {
+        [`${CLASS_ROOT}--${size}`]: (
+          size && typeof size === 'string'),
+  [`${CLASS_ROOT}--float`]: float
+},
+className
+);
+
+const containerClasses = classnames(
+`${CLASS_ROOT}__container`,
+{
+[`${CLASS_ROOT}__container--float`]: float,
+[`${CLASS_ROOT}__container--fixed`]: true,
+[`${CLASS_ROOT}__container--fill`]: (
+  // add default color index if none is provided
+fixed && ! colorIndex
+)
+}
+);
+
+const wrapperClasses = classnames(
+`${CLASS_ROOT}__wrapper`,
+{
+[`${CLASS_ROOT}__wrapper--${size}`]: (
+size && typeof size === 'string')
+}
+);
+
+const boxProps = Props.pick(this.props, Object.keys(Box.propTypes));
+  // don't transfer size to Box since it means something different
+delete boxProps.size;
+
+if (true) {
+return (
+<div className={containerClasses} {...restProps}>
+<div
+ref={ref => (this.mirrorRef = ref)}
+className={`${CLASS_ROOT}__mirror`}
+/>
+<div className={wrapperClasses}>
+<Box
+ref={ref => (this.contentRef = ref)}
+{...boxProps}
+tag="footer"
+className={classes}
+primary={false}
+>
+<ul className="footer__list">
+<li className="footer__list-item">
+<a
+className="footer__like-buttons__link footer__like-button footer__like-button--twitter"
+href="https://twitter.com/auth0"
+>
+<span className="footer__like-buttons__link footer__like-button__icon-container">
+<svg className="footer__like-button__icon" viewBox="0 0 72 72">
+<path fill="none" d="M0 0h72v72H0z" />
+  /* eslint-disable next-line */
+<path fill="#fff" d="M68.812 15.14c-2.348 1.04-4.87 1.744-7.52 2.06 2.704-1.62 4.78-4.186 5.757-7.243-2.53 1.5-5.33 2.592-8.314 3.176C56.35 10.59 52.948 9 49.182 9c-7.23 0-13.092 5.86-13.092 13.093 0 1.026.118 2.02.338 2.98C25.543 24.527 15.9 19.318 9.44 11.396c-1.125 1.936-1.77 4.184-1.77 6.58 0 4.543 2.312 8.552 5.824 10.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163 0 6.345 4.513 11.638 10.504 12.84-1.1.298-2.256.457-3.45.457-.845 0-1.666-.078-2.464-.23 1.667 5.2 6.5 8.985 12.23 9.09-4.482 3.51-10.13 5.605-16.26 5.605-1.055 0-2.096-.06-3.122-.184 5.794 3.717 12.676 5.882 20.067 5.882 24.083 0 37.25-19.95 37.25-37.25 0-.565-.013-1.133-.038-1.693 2.558-1.847 4.778-4.15 6.532-6.774z"/>
+</svg>
+</span>
+<span className="footer__like-buttons__action">Follow</span>
+<span className="footer__like-buttons__counter">10 257</span>
+</a>
+</li>
+<li className="footer__list-item">
+<a
+className="footer__like-buttons__link footer__like-button footer__like-button--facebook"
+href="https://www.facebook.com/getauth0"
+>
+<span className="footer__like-button__icon-container">
+<svg className="footer__like-button__icon" viewBox="0 0 16 16">
+<path fill="#fff" fillRule="evenodd" d="M4.55 7c.248 0 .45.234.45.522v5.956c0 .288-.202.522-.45.522h-2.1c-.248 0-.45-.234-.45-.522V7.522C2 7.234 2.202 7 2.45 7h2.1zm1.995 6.2c-.305-.036-.528-.302-.545-.626.017 0 .013-2.906 0-4.43.013-.525.108-1.458.398-1.87.708-1.008 1.205-1.666 1.494-2.048.29-.382.636-.755.646-1.04.013-.384 0-.39 0-.83 0-.44.208-.856.733-.856.257 0 .46.057.65.3.304.356.516.92.516 1.81S9.51 6.173 9.51 6.18h4.037c.618-.004.954.545.954 1.117 0 .536-.364.982-.844 1.057.29.14.5.47.5.852 0 .476-.325.872-.756.94.23.145.375.406.375.702 0 .398-.26.733-.615.813.21.14.346.396.346.685 0 .452-.334.823-.763.857H6.545z"></path>
+</svg>
+</span>
+<span className="footer__like-buttons__action">Like</span>
+<span className="footer__like-buttons__counter">13 968</span>
+</a>
+</li>
+</ul>
+</Box>
+</div>
+</div>
+);
+} else {
+return (
+<Box
+{...restProps}
+{...boxProps}
+tag="footer"
+className={classes}
+containerClass={containerClasses}
+primary={false}
+>
+
+
+<div className="footer__content">
+<ul className="footer__list">
+<li className="footer__list-item">
+<a
+className="footer__like-buttons__link footer__like-button footer__like-button--twitter"
+href="https://twitter.com/auth0"
+>
+<span className="footer__like-buttons__link footer__like-button__icon-container">
+<svg className="footer__like-button__icon" viewBox="0 0 72 72">
+<path fill="none" d="M0 0h72v72H0z" />
+  /* eslint-disable next-line */
+<path fill="#fff" d="M68.812 15.14c-2.348 1.04-4.87 1.744-7.52 2.06 2.704-1.62 4.78-4.186 5.757-7.243-2.53 1.5-5.33 2.592-8.314 3.176C56.35 10.59 52.948 9 49.182 9c-7.23 0-13.092 5.86-13.092 13.093 0 1.026.118 2.02.338 2.98C25.543 24.527 15.9 19.318 9.44 11.396c-1.125 1.936-1.77 4.184-1.77 6.58 0 4.543 2.312 8.552 5.824 10.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163 0 6.345 4.513 11.638 10.504 12.84-1.1.298-2.256.457-3.45.457-.845 0-1.666-.078-2.464-.23 1.667 5.2 6.5 8.985 12.23 9.09-4.482 3.51-10.13 5.605-16.26 5.605-1.055 0-2.096-.06-3.122-.184 5.794 3.717 12.676 5.882 20.067 5.882 24.083 0 37.25-19.95 37.25-37.25 0-.565-.013-1.133-.038-1.693 2.558-1.847 4.778-4.15 6.532-6.774z"/>
+</svg>
+</span>
+<span className="footer__like-buttons__action">Follow</span>
+<span className="footer__like-buttons__counter">10 257</span>
+</a>
+</li>
+<li className="footer__list-item">
+<a
+className="footer__like-buttons__link footer__like-button footer__like-button--facebook"
+href="https://www.facebook.com/getauth0"
+>
+<span className="footer__like-button__icon-container">
+<svg className="footer__like-button__icon" viewBox="0 0 16 16">
+<path fill="#fff" fillRule="evenodd" d="M4.55 7c.248 0 .45.234.45.522v5.956c0 .288-.202.522-.45.522h-2.1c-.248 0-.45-.234-.45-.522V7.522C2 7.234 2.202 7 2.45 7h2.1zm1.995 6.2c-.305-.036-.528-.302-.545-.626.017 0 .013-2.906 0-4.43.013-.525.108-1.458.398-1.87.708-1.008 1.205-1.666 1.494-2.048.29-.382.636-.755.646-1.04.013-.384 0-.39 0-.83 0-.44.208-.856.733-.856.257 0 .46.057.65.3.304.356.516.92.516 1.81S9.51 6.173 9.51 6.18h4.037c.618-.004.954.545.954 1.117 0 .536-.364.982-.844 1.057.29.14.5.47.5.852 0 .476-.325.872-.756.94.23.145.375.406.375.702 0 .398-.26.733-.615.813.21.14.346.396.346.685 0 .452-.334.823-.763.857H6.545z"></path>
+</svg>
+</span>
+<span className="footer__like-buttons__action">Like</span>
+<span className="footer__like-buttons__counter">13 968</span>
+</a>
+</li>
+</ul>
+</div>
+
+</Box>
+);
+}
+}
+}
+
+Footer.propTypes = {
+  float: PropTypes.bool,
+  primary: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  ...Box.propTypes
+};
+
+Footer.defaultProps = {
+  align: 'center',
+  direction: 'row',
+  responsive: false
+};

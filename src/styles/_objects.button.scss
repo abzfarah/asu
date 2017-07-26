@@ -1,0 +1,211 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+$button-vertical-padding:
+  round($inuit-base-spacing-unit / 3) - $button-border-width;
+$button-horizontal-padding:
+  round($inuit-base-spacing-unit) - $button-border-width;
+
+@mixin basic-button {
+  &:not(.button--box) {
+    padding: $button-vertical-padding $button-horizontal-padding;
+  }
+
+  background-color: transparent;
+  border: $button-border-width solid $button-border-color;
+  border-radius: $border-radius;
+  color: $button-text-color;
+  @include inuit-font-size($control-font-size, $inuit-base-spacing-unit);
+  font-weight: $control-font-weight;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  min-width: $button-min-width;
+  max-width: $button-max-width;
+
+  @include media-query(lap-and-up) {
+    transition: 0.1s ease-in-out;
+  }
+
+  #{$dark-background-context} {
+    border-color: $button-colored-border-color;
+  }
+
+  #{$light-background-context} {
+    border-color: $button-border-color;
+  }
+}
+
+.grommet {
+  input[type="button"],
+  input[type="submit"],
+  button:not(.button) {
+    @include basic-button();
+
+    &:focus {
+      border-color: $focus-border-color;
+      box-shadow: 0 0 1px 1px $focus-border-color;
+    }
+  }
+
+  a.button {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.button {
+  @include basic-button();
+
+  &--focus {
+    border: $button-border-width solid $focus-border-color;
+    box-shadow: 0 0 1px 1px $focus-border-color;
+  }
+
+  @include background-context-color($button-text-color, $button-text-color);
+}
+
+.button--hover-background:hover {
+  background-color: $hover-background-color;
+  color: $hover-text-color;
+
+  #{$dark-background-context} {
+    background-color: $colored-hover-background-color;
+    color: $active-colored-text-color;
+  }
+
+  #{$light-background-context} {
+    background-color: $hover-background-color;
+    color: $hover-text-color;
+  }
+}
+
+.button:hover {
+  .control-icon {
+    @include icon-color($active-icon-color);
+    transition: none;
+  }
+
+  #{$dark-background-context} {
+    .control-icon {
+      @include icon-color($active-colored-icon-color);
+    }
+  }
+
+  #{$light-background-context} {
+    .control-icon {
+      @include icon-color($active-icon-color);
+    }
+  }
+}
+
+.button__icon {
+  display: inline-block;
+
+  .control-icon {
+    vertical-align: bottom;
+  }
+}
+
+.button--secondary:not(.button--focus) {
+  border-color: $button-secondary-color;
+}
+
+.button--accent:not(.button--focus) {
+  border-color: $button-accent-color;
+}
+
+.button--critical:not(.button--focus) {
+  border-color: $button-critical-color;
+}
+
+.button--align-start {
+  text-align: left;
+
+  html.rtl & {
+    text-align: right;
+  }
+}
+
+.button--plain:not(.button--box) {
+  padding: 0;
+}
+
+.button--plain {
+  width: auto;
+  height: auto;
+  min-width: 0;
+  max-width: none;
+  text-align: inherit;
+  font-weight: inherit;
+
+  .button__label {
+    margin: 0 halve($inuit-base-spacing-unit);
+  }
+
+  .button__icon {
+    padding: halve($inuit-base-spacing-unit);
+
+    + .button__label {
+      margin-left: 0;
+    }
+  }
+}
+
+.button--plain:not(.button--focus) {
+  border: $button-border-width solid transparent;
+}
+
+.button:not(.button--plain) {
+  .button__icon {
+
+    // @include background-context-icon($button-text-color, $button-text-color);
+
+    + .button__label {
+      margin-left: halve($inuit-base-spacing-unit);
+    }
+  }
+}
+
+.button--primary {
+  &:not(.button--focus) {
+    border-color: $brand-color;
+  }
+  background-color: $brand-color;
+  color: $active-colored-text-color;
+
+  &:hover:not(.button--disabled) {
+    color: $active-colored-text-color;
+
+   .button__icon .control-icon {
+      @include icon-color($active-colored-icon-color)
+    }
+  }
+
+  .control-icon {
+    @include icon-color($active-colored-icon-color);
+  }
+
+  @include background-context-color($active-colored-text-color,
+    $active-colored-text-color);
+
+  @include background-context-icon($active-colored-text-color, $active-colored-text-color);
+}
+
+.button--disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.button:not(.button--fill) {
+  flex: 0 0 auto;
+}
+
+.button--fill {
+  width: 100%;
+  max-width: none;
+  // used to add full height for button inside a flex container
+  flex-grow: 1;
+}

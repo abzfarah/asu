@@ -1,0 +1,27 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.text-input {
+  @include input();
+}
+
+.text-input--active {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.text-input__suggestions {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.text-input__suggestion {
+  padding: quarter($inuit-base-spacing-unit) $inuit-base-spacing-unit;
+  cursor: pointer;
+
+  &:hover,
+  &--active {
+    background-color: $hover-background-color;
+  }
+}

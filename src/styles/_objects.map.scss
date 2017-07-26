@@ -1,0 +1,114 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+$map-stroke-width: round($inuit-base-spacing-unit / 12);
+$map-active-stroke-width: round($inuit-base-spacing-unit / 4);
+
+.map {
+  position: relative;
+  z-index: 0;
+  // padding: $inuit-base-spacing-unit;
+}
+
+.map__links {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+.map__path {
+  stroke-width: $map-stroke-width;
+  @include graph-stroke-color();
+}
+
+.map__path--active {
+  stroke-width: $map-active-stroke-width;
+}
+
+.map__categories {
+  margin: 0px;
+  list-style-type: none;
+}
+
+.map__category {
+  position: relative;
+  // padding-top: $inuit-base-spacing-unit;
+  margin-bottom: halve($inuit-base-spacing-unit);
+  max-width: none;
+}
+
+.map__category-label {
+  // position: absolute;
+  // top: 0px;
+  // left: 0px;
+  @include inuit-font-size($content-small-font-size);
+  margin-bottom: halve($inuit-base-spacing-unit);
+}
+
+.map__category-items {
+  margin: 0px;
+  list-style-type: none;
+  overflow: hidden;
+  text-align: center;
+}
+
+.map__item {
+  display: inline-block;
+  margin-right: halve($inuit-base-spacing-unit);
+  margin-bottom: halve($inuit-base-spacing-unit);
+
+  #{$dark-background-context} {
+    color: $text-color;
+  }
+}
+
+.map__item:not(.map__item--plain) {
+  width: $size-small;
+  border: 1px solid $border-color;
+  padding: quarter($inuit-base-spacing-unit) halve($inuit-base-spacing-unit);
+  background-color: $background-color;
+  @include inuit-font-size($content-font-size);
+
+  > a {
+    display: block;
+    padding: quarter($inuit-base-spacing-unit) halve($inuit-base-spacing-unit);
+    transition: background-color 0.2s;
+
+    > * {
+      display: inline-block;
+    }
+
+    &:hover {
+      background-color: $hover-background-color;
+    }
+  }
+
+  .status-icon {
+    margin-right: quarter($inuit-base-spacing-unit);
+  }
+}
+
+.map__item--active:not(.map__item--plain) {
+  border-color: $strong-border-color;
+  border-width: 2px;
+  padding: (quarter($inuit-base-spacing-unit) - 1px)
+    (halve($inuit-base-spacing-unit) - 1px);
+}
+
+.map--vertical {
+  .map__categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .map__category-items {
+    text-align: left;
+  }
+
+  .map__item {
+    display: block;
+    margin-right: 0;
+  }
+}

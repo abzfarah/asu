@@ -1,0 +1,41 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.sidebar {
+  @include media-query(palm) {
+    max-width: 100%;
+    width: 100vw;
+  }
+
+  @include media-query(lap-and-up) {
+    width: $sidebar-width;
+  }
+}
+
+.sidebar--fixed {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+}
+
+.sidebar--xsmall {
+  @include media-query(lap-and-up) {
+    width: $sidebar-xsmall-width;
+  }
+}
+
+.sidebar--small {
+  @include media-query(lap-and-up) {
+    width: $sidebar-small-width;
+  }
+}
+
+.sidebar--large {
+  @include media-query(lap-and-up) {
+    width: $sidebar-large-width;
+  }
+}
+
+.sidebar--full {
+  height: 100vh;
+  overflow: auto;
+}

@@ -1,0 +1,52 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.search-input {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input__input {
+  @include input();
+  padding-right: round($inuit-base-spacing-unit * 2.5);
+}
+
+.search-input__input:focus {
+  padding-right: round($inuit-base-spacing-unit * 2.5 -
+    ($input-border-width + 1));
+}
+
+// Disable IE's clear icon
+.search-input__input::-ms-clear {
+  display: none;
+}
+
+.search-input__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: quarter($inuit-base-spacing-unit);
+}
+
+.search-input__suggestions {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.search-input__suggestion {
+  padding: quarter($inuit-base-spacing-unit) $inuit-base-spacing-unit;
+  cursor: pointer;
+
+  &:hover,
+  &--active {
+    background-color: $hover-background-color;
+  }
+}
+
+.search-input--active {
+  .search-input__input {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}

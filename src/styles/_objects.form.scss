@@ -1,0 +1,76 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.form {
+  position: relative;
+  max-width: 100%;
+
+  @include media-query(lap-and-up) {
+    // For some reason, Tiles inside FormField doesn't determine its
+    // width correctly. Enforce it here.
+    .form-field .tiles__container {
+      max-width: $form-width;
+    }
+  }
+
+  @include pad();
+
+  > .header .header__wrapper { // TODO: clean up
+    background-color: inherit;
+  }
+
+  fieldset {
+    // needed to avoid form fields overflow form element
+    min-width: 0;
+    border: none;
+    margin: 0px;
+    margin-bottom: 2rem;
+    margin-top: $inuit-base-spacing-unit;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    > legend {
+      @include inuit-font-size(24px);
+      font-weight: $text-strong-font-weight;
+      margin-bottom: halve($inuit-base-spacing-unit);
+    }
+
+    > *:not(.form-field) + .form-field {
+      margin-top: halve($inuit-base-spacing-unit);
+    }
+
+    > .form-field + *:not(.form-field):not(.form-fields) {
+      margin-top: $inuit-base-spacing-unit;
+    }
+
+    > .form-fields {
+      display: flex;
+      flex-direction: row;
+
+      .form-field {
+        margin-bottom: -1px;
+      }
+
+      > .button {
+        flex: 0 0 auto;
+      }
+    }
+  }
+}
+
+.form:not(.form--plain) {
+  width: $form-width;
+}
+
+.form--fill {
+  min-width: 0px;
+}
+
+.form--compact {
+  max-width: $compact-form-width;
+}

@@ -1,0 +1,10 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.tbd {
+  text-align: center;
+  padding: quadruple($inuit-base-spacing-unit);
+  @include inuit-font-size(quadruple($inuit-base-spacing-unit));
+  font-style: italic;
+  background-color: $border-color;
+  color: $background-color;
+}

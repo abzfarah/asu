@@ -1,0 +1,201 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+.splashIndividual-top-illustrationcontainer {
+  position: relative;
+  width: 980px;
+  max-width: 900px;
+  min-width: 830px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.splashIndividual-top-illustration {
+  width: 295px;
+  height: 295px;
+  position: absolute;
+  bottom: -110px;
+  right: 5px;
+  background-image: url(https://cdn.okccdn.com/media/img/illustrations/wright-png/home-painter@2x.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.footer {
+  min-height: $footer-height;
+  width: 100%;
+}
+
+.footer--small {
+  min-height: $small-footer-height;
+}
+
+.footer--large {
+  min-height: $large-footer-height;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: $inuit-base-spacing-unit;
+  padding-right: $inuit-base-spacing-unit;
+
+  > * {
+    margin-right: double($inuit-base-spacing-unit);
+
+    &:last-child {
+      margin-right: 0px;
+      text-align: left;
+    }
+  }
+}
+
+.footer--primary {
+  height: auto;
+  padding: $inuit-base-spacing-unit;
+
+  .footer__content {
+    position: relative;
+    color: $secondary-text-color;
+    display: block;
+  }
+}
+
+.footer--centered {
+  .footer__content {
+    display: block;
+    text-align: center;
+
+    > * {
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+  }
+}
+
+.footer--flush {
+  .footer__content,
+  .footer__wrapper {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.footer__container {
+  border-top: 1px solid #eceded;
+}
+
+.footer__list {
+  margin-top: 5px;
+}
+
+.footer__list-item {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.footer__like-button {
+  border-radius: 3px;
+  color: #fff!important;
+  display: inline-block;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 11px;
+  height: 20px;
+  overflow: hidden;
+  padding-left: 6px;
+  padding-right: 6px;
+  transition: background-color .2s ease;
+}
+
+.footer__like-buttons__link {
+  border-radius: 3px;
+  color: #fff!important;
+  display: inline-block;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 11px;
+  height: 20px;
+  overflow: hidden;
+  padding-left: 6px;
+  padding-right: 6px;
+  transition: background-color .2s ease;
+}
+.footer__like-button__icon-container {
+  display: block;
+  float: left;
+  margin-top: 1px;
+}
+.footer__like-buttons__action {
+  display: block;
+  float: left;
+  font-weight: 600;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-top: 2px;
+}
+
+.footer__like-buttons__counter {
+  float: left;
+  display: block;
+  margin-top: 2px;
+}
+
+.footer__like-button__icon {
+  height: 16px;
+  width: 16px;
+}
+
+
+
+.footer__like-button--twitter {
+  background-color: #00aced;
+}
+
+.footer__like-button--facebook {
+  background-color: #0077b5;
+}
+
+.footer__container--float {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.footer__container--fill {
+  .footer {
+    background-color: $footer-background-color;
+  }
+}
+
+.footer__container--fixed {
+  position: relative;
+  width: 100%;
+
+  .footer__wrapper {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 3;
+  }
+}
+
+.footer__wrapper {
+  height: $footer-height;
+}
+
+.footer__wrapper--large {
+  height: $large-footer-height;
+}
+
+.footer__wrapper--small {
+  height: $small-footer-height;
+}
+
+*:not(.footer__container--float) > .footer--float {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}

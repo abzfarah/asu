@@ -1,0 +1,203 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+$outer-pad: round($inuit-base-spacing-unit * 2);
+$inner-pad: round($inuit-base-spacing-unit * 0.25);
+$topology-stroke-width: round($inuit-base-spacing-unit / 12);
+$topology-active-stroke-width: round($inuit-base-spacing-unit / 4);
+
+.topology {
+  position: relative;
+  outline: none;
+
+  // put status icons above canvas so lines start under them
+  .status-icon {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.topology--focus {
+  border-color: $focus-border-color;
+  box-shadow: 0 0 1px 1px $focus-border-color;
+}
+
+.topology__links {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.topology__path {
+  stroke-width: $topology-stroke-width;
+  @include graph-stroke-color();
+}
+
+.topology__path--active {
+  stroke-width: $topology-active-stroke-width;
+}
+
+.topology__contents
+> .topology__parts--direction-row
+> .topology__part {
+
+  @include media-query(lap-and-up) {
+    margin-right: $outer-pad;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @include media-query(palm) {
+    margin-bottom: $outer-pad;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.topology__contents
+> .topology__parts--direction-column
+> .topology__part {
+
+  margin-bottom: $outer-pad;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.topology__parts {
+  display: flex;
+  align-items: stretch;
+  outline: none;
+}
+
+.topology__parts--direction-row {
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.topology__parts--direction-column {
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.topology__parts--align-start {
+  align-items: flex-start;
+}
+
+.topology__parts--align-center {
+  align-items: center;
+}
+
+.topology__parts--align-end {
+  align-items: flex-end;
+}
+
+.topology__parts--align-stretch {
+  align-items: stretch;
+}
+
+.topology__part {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  overflow: hidden;
+  outline: none;
+
+  > .topology__parts .topology__part {
+    flex: 1;
+  }
+}
+
+.topology__part--demarcate {
+  border: 1px solid $border-color;
+
+  #{$dark-background-context} {
+    border-color: $colored-border-color;
+  }
+
+  #{$light-background-context} {
+    border-color: $border-color;
+  }
+
+  &.topology__part--empty {
+    background-color: $secondary-background-color;
+    min-width: $inuit-base-spacing-unit;
+    min-height: $inuit-base-spacing-unit;
+
+    #{$dark-background-context} {
+      background-color: $colored-active-background-color;
+    }
+
+    #{$light-background-context} {
+      background-color: $secondary-background-color;
+    }
+  }
+}
+
+.topology__part--justify-start {
+  justify-content: flex-start;
+}
+
+.topology__part--justify-center {
+  justify-content: center;
+}
+
+.topology__part--justify-between {
+  justify-content: space-between;
+}
+
+.topology__part--justify-end {
+  justify-content: flex-end;
+}
+
+.topology__part--align-start {
+  align-items: flex-start;
+}
+
+.topology__part--align-center {
+  align-items: center;
+}
+
+.topology__part--align-end {
+  align-items: flex-end;
+}
+
+.topology__part--align-stretch {
+  align-items: stretch;
+}
+
+.topology__part--direction-row {
+  flex-direction: row;
+
+  &.topology__part--reverse {
+    flex-direction: row-reverse;
+  }
+
+  > *:not(.topology__parts):not(.topology__part) {
+    margin: $inner-pad;
+  }
+}
+
+.topology__part--direction-column {
+  flex-direction: column;
+
+  &.topology__part--reverse {
+    flex-direction: column-reverse;
+  }
+
+  > *:not(.topology__parts):not(.topology__part) {
+    margin: $inner-pad;
+  }
+}
+
+.topology__label {
+  font-size: $content-small-font-size;
+  margin-left: halve($inuit-base-spacing-unit);
+  margin-right: halve($inuit-base-spacing-unit);
+}

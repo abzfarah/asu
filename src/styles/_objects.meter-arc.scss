@@ -1,0 +1,149 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+// ARC
+
+$meter-arc-size-xsmall: ($size-xsmall * 0.75);
+$meter-arc-size-small: ($size-small * 0.75);
+$meter-arc-size-medium: ($size-medium * 0.75);
+$meter-arc-size-large: ($size-large * 0.75);
+$meter-arc-size-xlarge: ($size-xlarge * 0.75);
+$meter-arc-size-default: $meter-arc-size-small;
+
+.meter--arc:not(.meter--vertical) {
+
+  .meter__graphic {
+    width: $meter-size-default;
+    min-width: $size-xsmall;
+    height: auto;
+  }
+
+  &.meter--xsmall {
+    .meter__graphic {
+      width: $size-xsmall;
+      height: $meter-arc-size-xsmall;
+    }
+  }
+
+  &.meter--small {
+
+    .meter__graphic {
+      width: $size-small;
+      height: $meter-arc-size-small;
+    }
+  }
+
+  &.meter--medium {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $meter-arc-size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-medium;
+        height: $meter-arc-size-medium;
+      }
+    }
+  }
+
+  &.meter--large {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $meter-arc-size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-large;
+        height: $meter-arc-size-large;
+      }
+    }
+  }
+
+  &.meter--xlarge {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $meter-arc-size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-xlarge;
+        height: $meter-arc-size-xlarge;
+      }
+    }
+  }
+}
+
+.meter--arc.meter--vertical {
+
+  .meter__graphic {
+    display: inline;
+    width: $meter-arc-size-default;
+    height: $meter-size-default;
+  }
+
+  &.meter--xsmall {
+
+    .meter__graphic {
+      width: $meter-arc-size-xsmall;
+      height: $size-xsmall;
+    }
+  }
+
+  &.meter--small {
+
+    .meter__graphic {
+      width: $meter-arc-size-small;
+      height: $size-small;
+    }
+  }
+
+  &.meter--medium {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $meter-arc-size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $meter-arc-size-medium;
+        height: $size-medium;
+      }
+    }
+  }
+
+  &.meter--large {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $meter-arc-size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $meter-arc-size-large;
+        height: $size-large;
+      }
+    }
+  }
+
+  &.meter--xlarge {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $meter-arc-size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $meter-arc-size-xlarge;
+        height: $size-xlarge;
+      }
+    }
+  }
+}

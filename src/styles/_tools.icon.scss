@@ -1,0 +1,38 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+@mixin icon-color($icon-color) {
+  fill: $icon-color;
+  stroke: $icon-color;
+}
+
+@mixin icon-hover-grow() {
+  transform: scale(1.1);
+}
+
+@mixin background-context-icon($light-color, $active-light-color) {
+  #{$dark-background-context} {
+    .control-icon {
+      @include icon-color($colored-icon-color);
+    }
+
+    &:active,
+    &:hover {
+     .control-icon {
+        @include icon-color($active-colored-icon-color);
+      }
+    }
+  }
+
+  #{$light-background-context} {
+    .control-icon {
+      @include icon-color($light-color);
+    }
+
+    &:active,
+    &:hover {
+     .control-icon {
+        @include icon-color($active-light-color);
+      }
+    }
+  }
+}

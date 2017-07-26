@@ -1,0 +1,24 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.number-input__input {
+  @include input();
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    // display: none; <- Crashes Chrome on hover
+    -webkit-appearance: none;
+    margin: 0; // Apparently some margin are still there even though it's hidden
+  }
+
+  -moz-appearance: textfield;
+
+  // Disable Firefox invalid outline
+  &:invalid {
+    box-shadow: none;
+  }
+
+  // Disable IE's clear icon
+  &::-ms-clear {
+    display: none;
+  }
+}

@@ -1,0 +1,42 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.headline {
+  font-weight: $text-font-weight;
+  margin-bottom: $inuit-base-spacing-unit;
+  max-width: 100%;
+  @include text-align();
+  @include vertical-margin();
+
+  @include media-query(lap-and-up) {
+    @include inuit-font-size($headline-font-size, 1);
+  }
+  @include media-query(palm) {
+    @include inuit-font-size($headline-palm-font-size, 1);
+  }
+}
+
+.headline--small {
+  @include inuit-font-size($headline-small-font-size, 1);
+}
+
+.headline--large {
+  @include media-query(lap-and-up) {
+    @include inuit-font-size($headline-large-font-size, 1);
+  }
+  @include media-query(palm) {
+    @include inuit-font-size($headline-large-palm-font-size, 1);
+  }
+}
+
+.headline--xlarge {
+  @include media-query(lap-and-up) {
+    @include inuit-font-size($headline-xlarge-font-size, 1);
+  }
+  @include media-query(palm) {
+    @include inuit-font-size($headline-xlarge-palm-font-size, 1);
+  }
+}
+
+.headline--strong {
+  font-weight: $text-strong-font-weight;
+}

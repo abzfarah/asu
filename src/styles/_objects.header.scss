@@ -1,0 +1,127 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.header {
+  min-height: $header-height;
+  width: 100%;
+  margin-bottom: 0px;
+
+  .status-icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+.header--large {
+  min-height: $large-header-height;
+}
+
+.header--small {
+  min-height: $small-header-height;
+
+}
+
+.header--splash {
+  @include transform(translate(0, 40vh));
+}
+
+*:not(.header__container--float)
+> header.header--float {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+header.header--primary {
+  .header__wrapper {
+    border-bottom: none;
+  }
+}
+
+.header:not(header) {
+  &.box--separator-top {
+    padding-top: quarter($inuit-base-spacing-unit);
+  }
+
+  &.box--separator-bottom {
+    padding-bottom: quarter($inuit-base-spacing-unit);
+  }
+}
+
+// header with container and wrapper elements
+.header__container {
+  flex-shrink: 0;
+}
+
+.header__container--fill {
+  .header {
+    background-color: $header-background-color;
+  }
+}
+
+.header__container--fixed {
+  position: relative;
+
+  .header__wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 50;
+
+    .header {
+      @include media-query(lap-and-up) {
+        position: fixed;
+      }
+    }
+  }
+}
+
+.header__container--float {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.header__wrapper {
+  height: $header-height;
+}
+
+.header__wrapper--large {
+  height: $large-header-height;
+}
+
+.header__wrapper--small {
+  height: $small-header-height;
+}
+
+.header--fixed {
+  .header__wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: $header-background-color;
+    z-index: 3;
+  }
+}
+
+.header--fixed.header--primary {
+  .header__wrapper {
+    position: fixed;
+    background-color: $header-background-color;
+  }
+
+  .header__content {
+    position: static;
+    background-color: transparent;
+  }
+}
+
+.header--flush {
+  .header__wrapper {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

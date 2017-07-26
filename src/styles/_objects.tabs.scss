@@ -1,0 +1,38 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.tabs {
+  margin: halve($inuit-base-spacing-unit) 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  border-bottom: 1px solid $border-color;
+
+  + div:focus {
+    outline: none;
+  }
+}
+
+.tabs--justify-center {
+  justify-content: center;
+}
+
+.tabs--justify-start {
+  justify-content: flex-start;
+}
+
+.tabs--justify-end {
+  justify-content: flex-end;
+}
+
+.tabs--justify-start,
+.tabs--justify-center,
+.tabs--justify-end {
+  &.tabs--responsive {
+    @include media-query(palm) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}

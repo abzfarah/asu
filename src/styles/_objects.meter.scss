@@ -1,0 +1,101 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+$meter-size-default: $size-small;
+
+$meter-slice-width: round($inuit-base-spacing-unit / 6);
+$meter-slice-active-width: round($inuit-base-spacing-unit / 2);
+$meter-threshold-slice-width: $meter-slice-width;
+$meter-indicator-width: round($inuit-base-spacing-unit / 6);
+
+$meter-label-width: double($inuit-base-spacing-unit);
+$meter-active-offset: round($inuit-base-spacing-unit * 1.5);
+
+.meter {
+  display: inline-block;
+  position: relative;
+}
+
+.meter__slice {
+  stroke-width: $meter-slice-width;
+  fill: none;
+  stroke: $meter-background-color;
+}
+
+.meter__hot {
+  cursor: pointer;
+  stroke-width: double($meter-slice-active-width);
+  stroke: rgba(0, 0, 0, 0.001);
+}
+
+.meter__threshold {
+  stroke: $threshold-color;
+}
+
+.meter__value-container {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.meter__graphic-container {
+  white-space: normal;
+
+  > a {
+    text-decoration: none;
+  }
+}
+
+.meter__graphic {
+  max-width: 100%;
+
+  &:focus {
+    outline: $focus-border-color solid 1px;
+  }
+
+  text {
+    fill: $secondary-text-color;
+  }
+}
+
+.meter:not(.meter--vertical) {
+
+  .meter__graphic-container {
+    display: inline-block;
+  }
+}
+
+.meter--vertical {
+
+  .meter__graphic-container {
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
+
+.meter--small,
+.meter--xsmall {
+
+  .meter__slice {
+    stroke-width: double($meter-slice-width);
+  }
+
+  .meter__values .meter__slice.meter__slice--active {
+    stroke-width: double($meter-slice-active-width);
+  }
+}
+
+.meter--active {
+  .meter__values .meter__slice {
+    stroke-width: $meter-slice-active-width;
+  }
+}
+
+.meter__values .meter__slice--active {
+  stroke-width: $meter-slice-active-width;
+}
+
+@import "objects.meter-bar";
+@import "objects.meter-curved";
+@import "objects.meter-circle";
+@import "objects.meter-arc";
+@import "objects.meter-spiral";

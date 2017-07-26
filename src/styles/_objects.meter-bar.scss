@@ -1,0 +1,413 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+// BAR
+
+// For each size of meter, we calculate the proportional cross dimension
+$meter-bar-cross-xsmall:
+  round($inuit-base-spacing-unit * ($size-xsmall / $size-small));
+$meter-bar-cross-small:
+  round($inuit-base-spacing-unit * ($size-small / $size-small));
+$meter-bar-cross-medium:
+  round($inuit-base-spacing-unit * ($size-medium / $size-small));
+$meter-bar-cross-large:
+  round($inuit-base-spacing-unit * ($size-large / $size-small));
+$meter-bar-cross-xlarge:
+  round($inuit-base-spacing-unit * ($size-xlarge / $size-small));
+$meter-bar-cross-default:
+  round($inuit-base-spacing-unit * ($meter-size-default / $size-small));
+
+@include keyframes(draw-meter-bar-small) {
+  0% {
+    stroke-dashoffset: $meter-size-default;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.meter--bar {
+  line-height: 0;
+
+  .meter__slice {
+    stroke-linecap: butt;
+  }
+
+  .meter__values .meter__slice {
+    @include graph-stroke-color();
+
+    &--clickable {
+      cursor: pointer;
+    }
+
+    @include media-query(lap-and-up) {
+      stroke-dasharray: $meter-size-default $meter-size-default;
+      stroke-dashoffset: 0;
+      transition: stroke-width 0.2s;
+      @include animation('draw-meter-bar-small 1s ease-in');
+    }
+  }
+
+  .meter__thresholds .meter__slice,
+  .meter__tracks .meter__slice {
+    @include graph-stroke-color-translucent(0.5);
+  }
+
+  // This should be a separate section but SCSS MergableSelector won't allow it. :(
+  &.meter--vertical {
+    white-space: nowrap;
+
+    .meter__graphic {
+      height: $meter-size-default;
+      width: $meter-bar-cross-default;
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          width: round($meter-bar-cross-default * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          width: round($meter-bar-cross-default * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          width: round($meter-bar-cross-default * 4);
+        }
+      }
+    }
+
+    .meter__labeled-graphic {
+      display: inline-block;
+    }
+
+    &.meter--xsmall {
+
+      .meter__graphic {
+        height: $size-xsmall;
+        width: $meter-bar-cross-xsmall;
+      }
+
+      &:not(.meter--stacked) {
+        &.meter--count-2 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xsmall * 2);
+          }
+        }
+
+        &.meter--count-3 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xsmall * 3);
+          }
+        }
+
+        &.meter--count-4 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xsmall * 4);
+          }
+        }
+      }
+    }
+
+    &.meter--small {
+
+      .meter__graphic {
+        height: $size-small;
+        width: $meter-bar-cross-small;
+      }
+
+      &:not(.meter--stacked) {
+        &.meter--count-2 {
+          .meter__graphic {
+            width: round($meter-bar-cross-small * 2);
+          }
+        }
+
+        &.meter--count-3 {
+          .meter__graphic {
+            width: round($meter-bar-cross-small * 3);
+          }
+        }
+
+        &.meter--count-4 {
+          .meter__graphic {
+            width: round($meter-bar-cross-small * 4);
+          }
+        }
+      }
+    }
+
+    &.meter--medium {
+
+      .meter__graphic {
+        height: $size-medium;
+        width: $meter-bar-cross-medium;
+      }
+
+      &:not(.meter--stacked) {
+        &.meter--count-2 {
+          .meter__graphic {
+            width: round($meter-bar-cross-medium * 2);
+          }
+        }
+
+        &.meter--count-3 {
+          .meter__graphic {
+            width: round($meter-bar-cross-medium * 3);
+          }
+        }
+
+        &.meter--count-4 {
+          .meter__graphic {
+            width: round($meter-bar-cross-medium * 4);
+          }
+        }
+      }
+    }
+
+    &.meter--large {
+
+      .meter__graphic {
+        height: $size-large;
+        width: $meter-bar-cross-large;
+      }
+
+      &:not(.meter--stacked) {
+        &.meter--count-2 {
+          .meter__graphic {
+            width: round($meter-bar-cross-large * 2);
+          }
+        }
+
+        &.meter--count-3 {
+          .meter__graphic {
+            width: round($meter-bar-cross-large * 3);
+          }
+        }
+
+        &.meter--count-4 {
+          .meter__graphic {
+            width: round($meter-bar-cross-large * 4);
+          }
+        }
+      }
+    }
+
+    &.meter--xlarge {
+
+      .meter__graphic {
+        height: $size-xlarge;
+        width: $meter-bar-cross-xlarge;
+      }
+
+      &:not(.meter--stacked) {
+        &.meter--count-2 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xlarge * 2);
+          }
+        }
+
+        &.meter--count-3 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xlarge * 3);
+          }
+        }
+
+        &.meter--count-4 {
+          .meter__graphic {
+            width: round($meter-bar-cross-xlarge * 4);
+          }
+        }
+      }
+    }
+  }
+}
+
+.meter--bar:not(.meter--vertical) {
+
+  .meter__graphic {
+    width: $size-small;
+    min-width: $size-xsmall;
+  }
+
+  &.meter--xsmall {
+
+    .meter__graphic {
+      width: $size-xsmall;
+      height: $meter-bar-cross-xsmall;
+    }
+
+    &.meter--single,
+    &.meter--stacked {
+      .meter__graphic {
+        height: $meter-bar-cross-xsmall;
+      }
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xsmall * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xsmall * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xsmall * 4);
+        }
+      }
+    }
+  }
+
+  &.meter--small {
+
+    .meter__graphic {
+      width: $size-small;
+      height: $meter-bar-cross-small;
+    }
+
+    &.meter--single,
+    &.meter--stacked {
+      .meter__graphic {
+        height: $meter-bar-cross-small;
+      }
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          height: round($meter-bar-cross-small * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          height: round($meter-bar-cross-small * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          height: round($meter-bar-cross-small * 4);
+        }
+      }
+    }
+  }
+
+  &.meter--medium {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-medium;
+      }
+
+      height: $meter-bar-cross-medium;
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          height: round($meter-bar-cross-medium * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          height: round($meter-bar-cross-medium * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          height: round($meter-bar-cross-medium * 4);
+        }
+      }
+    }
+  }
+
+  &.meter--large {
+    // line-height: round($inuit-base-spacing-unit * 1.5);
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-large;
+      }
+
+      height: $meter-bar-cross-large;
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          height: round($meter-bar-cross-large * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          height: round($meter-bar-cross-large * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          height: round($meter-bar-cross-large * 4);
+        }
+      }
+    }
+  }
+
+  &.meter--xlarge {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-xlarge;
+      }
+
+      height: $meter-bar-cross-xlarge;
+    }
+
+    &:not(.meter--stacked) {
+      &.meter--count-2 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xlarge * 2);
+        }
+      }
+
+      &.meter--count-3 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xlarge * 3);
+        }
+      }
+
+      &.meter--count-4 {
+        .meter__graphic {
+          height: round($meter-bar-cross-xlarge * 4);
+        }
+      }
+    }
+  }
+}

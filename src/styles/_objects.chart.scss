@@ -1,0 +1,765 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+@include keyframes(fade-in-chart) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+// New stuff
+
+.chart {
+  position: relative;
+  display: flex;
+
+  .chart {
+    min-width: 0; // looks odd but needed for flexbox to work right
+    max-width: 100%;
+  }
+}
+
+.chart--full {
+  width: 100%;
+}
+
+.chart--vertical {
+  flex-direction: column;
+}
+
+.chart:not(.chart--vertical) {
+  flex-direction: row;
+}
+
+// Base
+
+.chart-base {
+  display: flex;
+}
+
+.chart-base--vertical {
+  flex-direction: column;
+}
+
+.chart-base:not(.chart-base--vertical) {
+  flex-direction: row;
+
+  > * {
+    flex: 0 0 auto;
+  }
+}
+
+.chart-base--width-small {
+  width: $size-small;
+}
+
+.chart-base--width-medium {
+  width: $size-medium;
+}
+
+.chart-base--width-large {
+  width: $size-large;
+
+  @include media-query(palm) {
+    max-width: 100%;
+  }
+}
+
+.chart-base--width-full {
+  width: 100%;
+}
+
+.chart-base--height-xxsmall {
+  height: $size-xxsmall;
+}
+
+.chart-base--height-xsmall {
+  height: $size-xsmall;
+}
+
+.chart-base--height-small {
+  height: $size-small;
+}
+
+.chart-base--height-medium {
+  height: $size-medium;
+
+  @include media-query(palm) {
+    height: $size-small;
+  }
+}
+
+.chart-base--height-large {
+  height: $size-large;
+
+  @include media-query(palm) {
+    height: $size-medium;
+  }
+}
+
+.chart-base--height-sparkline {
+  height: $sparkline-height;
+  width: $sparkline-height * 4;
+
+  &.chart-base--width-xsmall {
+    width: $size-xsmall;
+  }
+
+  &.chart-base--width-small {
+    width: $size-small;
+  }
+
+  &.chart-base--width-medium {
+    width: $size-medium;
+  }
+
+  &.chart-base--width-large {
+    width: $size-large;
+
+    @include media-query(palm) {
+      max-width: 100%;
+    }
+  }
+}
+
+// Axis
+
+.chart-axis {
+  flex: 0 0 auto; // when in Chart
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-axis__slot {
+  flex: 0 0;
+  display: flex;
+  flex-direction: column;
+  // to work around Safari repaint issues
+  -webkit-transform: translateZ(0);
+}
+
+.chart-axis--ticks {
+  .chart-axis__slot {
+    &::before,
+    &::after {
+      background-color: $border-color;
+    }
+
+    #{$dark-background-context} {
+      &::before,
+      &::after {
+        background-color: $colored-border-color;
+      }
+    }
+
+    #{$light-background-context} {
+      &::before,
+      &::after {
+        background-color: $border-color;
+      }
+    }
+  }
+}
+
+.chart-axis--vertical {
+  flex-direction: column-reverse;
+  margin-left: halve($inuit-base-spacing-unit);
+  margin-right: halve($inuit-base-spacing-unit);
+
+  .chart-axis__slot {
+    min-width: 1em;
+    justify-content: flex-start;
+
+    &:first-child {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &.chart-axis--align-start {
+    align-items: flex-start;
+
+    .chart-axis__slot {
+      align-items: flex-start;
+    }
+  }
+
+  &.chart-axis--align-end {
+    align-items: flex-end;
+
+    .chart-axis__slot {
+      align-items: flex-end;
+    }
+  }
+
+  &.chart-axis--ticks {
+    .chart-axis__slot:not(.chart-axis__slot--placeholder) {
+      &::before {
+        display: block;
+        content: "";
+        height: 1px;
+        width: halve(halve($inuit-base-spacing-unit));
+      }
+    }
+
+    &.chart-axis--ticks--start {
+      .chart-axis__slot {
+        align-items: flex-start;
+      }
+    }
+
+    &.chart-axis--ticks--end {
+      .chart-axis__slot {
+        align-items: flex-end;
+      }
+    }
+  }
+
+  &.chart-axis--reverse {
+    flex-direction: column;
+
+    .chart-axis__slot {
+      justify-content: flex-start;
+      flex-direction: column-reverse;
+
+      &:first-child {
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      &:last-child {
+        justify-content: flex-start;
+      }
+    }
+
+    &.chart-axis--ticks--start {
+      .chart-axis__slot {
+        align-items: flex-start;
+      }
+    }
+
+    &.chart-axis--ticks--end {
+      .chart-axis__slot {
+        align-items: flex-end;
+      }
+    }
+  }
+}
+
+.chart-axis:not(.chart-axis--vertical) {
+  flex-direction: row;
+  margin-top: halve($inuit-base-spacing-unit);
+  margin-bottom: halve($inuit-base-spacing-unit);
+
+  .chart-axis__slot {
+    min-height: $inuit-base-spacing-unit;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-direction: row;
+
+    &:first-child {
+      align-items: flex-start;
+      flex-direction: row-reverse;
+      padding-left: 0;
+    }
+  }
+
+  &.chart-axis--align-start {
+    align-items: flex-start;
+  }
+
+  &.chart-axis--align-end {
+    align-items: flex-end;
+
+    .chart-axis__slot {
+      justify-content: flex-end;
+    }
+  }
+
+  &.chart-axis--ticks {
+    .chart-axis__slot::after {
+      display: block;
+      content: "";
+      height: halve(halve($inuit-base-spacing-unit));
+      width: 1px;
+    }
+
+    &.chart-axis--ticks--end {
+      .chart-axis__slot:not(.chart-axis__slot--placeholder) {
+        align-items: flex-end;
+      }
+    }
+
+    &.chart-axis--ticks--start {
+      .chart-axis__slot:not(.chart-axis__slot--placeholder) {
+        align-items: flex-start;
+      }
+    }
+
+    .chart-axis__slot:not(.chart-axis__slot--placeholder) {
+      > span {
+        padding: 0 quarter($inuit-base-spacing-unit);
+      }
+    }
+  }
+
+  &.chart-axis--reverse {
+    flex-direction: row-reverse;
+
+    .chart-axis__slot {
+      align-items: flex-start;
+    }
+
+    &.chart-axis--ticks {
+      .chart-axis__slot {
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+
+        &:first-child {
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}
+
+// MarkerLabel
+
+.chart-marker-label {
+  flex: 0 0 auto; // when in Chart
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-marker-label__slot {
+  flex: 0 0;
+  display: flex;
+  flex-direction: column;
+  // to work around Safari repaint issues
+  -webkit-transform: translateZ(0);
+}
+
+.chart-marker-label--vertical {
+  flex-direction: column-reverse;
+  // padding-top: round($inuit-base-spacing-unit / 3);
+  // padding-bottom: round($inuit-base-spacing-unit / 3);
+  margin-left: halve($inuit-base-spacing-unit);
+  margin-right: halve($inuit-base-spacing-unit);
+
+  .chart-marker-label__slot {
+    min-width: 1em;
+    justify-content: flex-start;
+
+    &.chart-marker-label__slot--flip {
+      justify-content: flex-end;
+    }
+  }
+
+  &.chart-marker-label--align-start {
+    align-items: flex-start;
+
+    .chart-marker-label__slot {
+      align-items: flex-start;
+    }
+  }
+
+  &.chart-marker-label--align-end {
+    align-items: flex-end;
+
+    .chart-marker-label__slot {
+      align-items: flex-end;
+    }
+  }
+
+  &.chart-marker-label--reverse {
+    flex-direction: column;
+
+    .chart-marker-label__slot {
+      justify-content: flex-end;
+
+      &.chart-marker-label__slot--flip {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+.chart-marker-label:not(.chart-marker-label--vertical) {
+  flex-direction: row;
+  // padding-left: round($inuit-base-spacing-unit / 3);
+  // padding-right: round($inuit-base-spacing-unit / 3);
+  margin-top: halve($inuit-base-spacing-unit);
+  margin-bottom: halve($inuit-base-spacing-unit);
+
+  .chart-marker-label__slot {
+    min-height: $inuit-base-spacing-unit;
+    align-items: flex-end;
+
+    &.chart-marker-label__slot--flip {
+      align-items: flex-start;
+    }
+  }
+
+  &.chart-marker-label--align-start {
+    align-items: flex-start;
+
+    .chart-marker-label__slot {
+      justify-content: flex-start;
+    }
+  }
+
+  &.chart-marker-label--align-end {
+    align-items: flex-end;
+
+    .chart-marker-label__slot {
+      justify-content: flex-end;
+    }
+  }
+}
+
+// Layers
+
+.chart-layers {
+  position: absolute;
+  @include animation('fade-in-chart 0.5s');
+}
+
+@include keyframes(stretch-up-chart) {
+  0% {
+    max-height: 0;
+  }
+
+  100% {
+    max-height: 100%;
+  }
+}
+
+@include keyframes(stretch-right-chart) {
+  0% {
+    max-width: 0;
+  }
+
+  100% {
+    max-width: 100%;
+  }
+}
+
+.chart-marker,
+.chart-grid,
+.chart-graph--line,
+.chart-graph--area,
+.chart-graph--bar,
+.chart-hot-spots,
+.chart-range,
+.chart-loading {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Loading
+
+.chart-loading {
+  top: 0;
+  stroke-width: $inuit-base-spacing-unit;
+  stroke: $unset-color;
+  stroke-dasharray: 1 $inuit-base-spacing-unit;
+  stroke-dashoffset: 0;
+}
+
+// HotSpots
+
+.chart-hot-spots {
+  display: flex;
+  width: 100%;
+
+  > * {
+    flex: 0 0;
+  }
+}
+
+.chart-hot-spots--vertical {
+  flex-direction: column;
+}
+
+.chart-hot-spots:not(.chart-hot-spots--vertical) {
+  flex-direction: row;
+}
+
+.chart-hot-spots--clickable {
+  cursor: pointer;
+}
+
+// Range
+
+$range-inactive-background-color: rgba(#fff, 0.7);
+$range-inactive-colored-background-color: rgba(#000, 0.4);
+$range-control-background-color: rgba(#fff, 0.7);
+$range-control-colored-background-color: rgba(#000, 0.5);
+
+.chart-range {
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-range__active {
+  position: relative;
+  height: 100%;
+  flex: 1 1;
+  cursor: ew-resize;
+}
+
+.chart-range__before,
+.chart-range__after {
+  position: relative;
+  flex: 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: $range-inactive-background-color;
+  z-index: 1;
+
+  #{$dark-background-context} {
+    background-color: $range-inactive-colored-background-color;
+  }
+
+  #{$light-background-context} {
+    background-color: $range-inactive-background-color;
+  }
+}
+
+.chart-range__before {
+  justify-content: flex-end;
+  border-color: $border-color;
+  border-width: 1px;
+  border-style: none solid none none;
+}
+
+.chart-range__before--end {
+  z-index: 2;
+}
+
+.chart-range__after {
+  justify-content: flex-start;
+  border-color: $border-color;
+  border-width: 1px;
+  border-style: none none none solid;
+}
+
+.chart-range__start,
+.chart-range__end {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  flex: 0 1 $inuit-base-spacing-unit;
+  background-color: $range-control-background-color;
+  border: 1px solid $border-color;
+  padding: quarter($inuit-base-spacing-unit) 0;
+  height: round($inuit-base-spacing-unit * 1.5);
+  cursor: col-resize;
+  outline: none;
+
+  #{$dark-background-context} {
+    background-color: $range-control-colored-background-color;
+    border-color: $colored-border-color;
+  }
+
+  #{$light-background-context} {
+    background-color: $range-control-background-color;
+    border-color: $border-color;
+  }
+
+  &:hover {
+    background-color: $background-color;
+    border-color: $strong-border-color;
+
+    #{$dark-background-context} {
+      background-color: $range-control-colored-background-color;
+      border-color: $colored-strong-border-color;
+    }
+
+    #{$light-background-context} {
+      background-color: $background-color;
+      border-color: $strong-border-color;
+    }
+  }
+
+  svg {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+.chart-range__start {
+  right: -1px;
+}
+
+.chart-range__start--edge {
+  right: -($inuit-base-spacing-unit + 2px); // account for border
+}
+
+.chart-range__end {
+  left: -1px;
+}
+
+.chart-range__end--edge {
+  left: -($inuit-base-spacing-unit + 2px); // account for border
+}
+
+.chart-range__start--focus,
+.chart-range__end--focus {
+  border-color: $focus-border-color;
+  box-shadow: 0 0 1px 1px $focus-border-color;
+}
+
+.chart-range--vertical {
+  flex-direction: column;
+
+  .chart-range__active {
+    width: 100%;
+    cursor: ns-resize;
+  }
+
+  .chart-range__before,
+  .chart-range__after {
+    flex-direction: column;
+  }
+
+  .chart-range__before {
+    border-style: none none solid;
+  }
+
+  .chart-range__after {
+    border-style: solid none none;
+  }
+
+  .chart-range__start,
+  .chart-range__end {
+    top: auto;
+    transform: none;
+    padding: 0 quarter($inuit-base-spacing-unit);
+    height: $inuit-base-spacing-unit + 2px;
+    // width: round($inuit-base-spacing-unit * 1.5);
+    cursor: row-resize;
+  }
+
+  .chart-range__start {
+    right: auto;
+    bottom: -1px;
+  }
+
+  .chart-range__start--edge {
+    bottom: -($inuit-base-spacing-unit + 2px); // account for border
+  }
+
+  .chart-range__end {
+    left: auto;
+    top: -1px;
+  }
+
+  .chart-range__end--edge {
+    top: -($inuit-base-spacing-unit + 2px); // account for border
+  }
+
+  svg {
+    transform: rotate(90deg);
+  }
+}
+
+// Grid
+
+.chart-grid {
+  path {
+    stroke: $border-color;
+
+    #{$dark-background-context} {
+      stroke: $colored-border-color;
+    }
+
+    #{$light-background-context} {
+      stroke: $border-color;
+    }
+  }
+}
+
+// Marker
+
+.chart-marker {
+  stroke: $border-color;
+  @include graph-stroke-color-translucent(0.7);
+  @include animation('fade-in-chart 1s');
+
+  #{$dark-background-context} {
+    @include graph-stroke-color();
+  }
+
+  #{$light-background-context} {
+    @include graph-stroke-color-translucent(0.7);
+  }
+}
+
+// Graph
+
+.chart-graph--line {
+  stroke-width: 3px;
+  @include graph-stroke-color-translucent(0.7);
+}
+
+.chart-graph--bar {
+  stroke-width: 4px;
+  @include graph-stroke-color-translucent(0.7);
+
+  &.chart-graph--vertical {
+    @include animation('stretch-right-chart 1.5s');
+  }
+
+  &:not(.chart-graph--vertical) {
+    bottom: 0;
+    @include animation('stretch-up-chart 1.5s');
+  }
+}
+
+.chart-graph--area {
+  stroke-width: 3px;
+  @include graph-fill-color-translucent(0.7);
+
+  &.chart-graph--vertical {
+    @include animation('stretch-right-chart 1.5s');
+  }
+
+  &:not(.chart-graph--vertical) {
+    bottom: 0;
+    @include animation('stretch-up-chart 1.5s');
+  }
+
+  .chart-graph__point {
+    stroke: $background-color;
+  }
+}
+
+.chart-graph__point {
+  stroke: none;
+  @include graph-fill-color-translucent(0.9);
+  // fill: $background-color;
+  transition: r $base-animation-duration;
+  @include animation('fade-in-chart 0.3s');
+}
+
+.chart-graph__point--active {
+  stroke: $background-color;
+  @include graph-fill-color();
+
+  #{$dark-background-context} {
+    stroke: $colored-active-background-color;
+  }
+
+  #{$light-background-context} {
+    stroke: $background-color;
+  }
+}

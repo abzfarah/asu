@@ -1,0 +1,80 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+// CIRCLE
+
+.meter--circle {
+
+  .meter__graphic {
+    width: $meter-size-default;
+    min-width: $size-xsmall;
+    height: auto;
+  }
+
+  .meter__label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.meter--xsmall {
+
+    .meter__graphic {
+      width: $size-xsmall;
+      height: $size-xsmall;
+    }
+  }
+
+  &.meter--small {
+
+    .meter__graphic {
+      width: $size-small;
+      height: $size-small;
+    }
+  }
+
+  &.meter--medium {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-medium;
+        height: $size-medium;
+      }
+    }
+  }
+
+  &.meter--large {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-large;
+        height: $size-large;
+      }
+    }
+  }
+
+  &.meter--xlarge {
+
+    .meter__graphic {
+      @include media-query(palm) {
+        width: $size-small;
+        height: $size-small;
+      }
+
+      @include media-query(lap-and-up) {
+        width: $size-xlarge;
+        height: $size-xlarge;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+// Copyright (c) 2018 Nomad Media, Inc. All Rights Reserved.
+
+.world-map {
+  width: 100%;
+}
+
+.world-map__continent,
+.world-map__place {
+  @include graph-stroke-color();
+  stroke-linecap: round;
+  transition: stroke-width $base-animation-duration;
+  outline: none;
+}
+
+.world-map__continent {
+  stroke-width: 6px;
+}
+
+.world-map__place {
+  stroke-width: 8px;
+}
+
+.world-map__continent--active {
+  stroke-width: 8px;
+  cursor: pointer;
+}
+
+.world-map__place--active {
+  stroke-width: 20px;
+  cursor: pointer;
+}

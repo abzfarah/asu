@@ -1,0 +1,147 @@
+// (C) Copyright 2016 Hewlett Packard Enterprise Development LP
+
+.hero:not(.hero--stack) {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  // This could be column, but IE11 doesn't work with that. :(
+  flex-direction: row;
+  align-items: center;
+
+  .hero__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+  }
+
+  .hero__foreground {
+    // position: relative;
+    z-index: 1;
+    flex: 1 1;
+    // min-height: 100%;
+  }
+
+  &.hero--small {
+    min-height: 40vh;
+
+    // deprecated
+    .hero__overlay.box {
+      height: 60vh;
+    }
+  }
+
+  &.hero--medium {
+    min-height: 60vh;
+  }
+
+  &.hero--large {
+    min-height: 75vh;
+
+    // deprecated
+    .hero__overlay.box {
+      height: 75vh;
+    }
+  }
+}
+
+.hero.hero--stack {
+  .hero__background {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero--small {
+    .hero__background {
+      height: 20vh;
+    }
+
+    // deprecated
+    .hero__image {
+      height: $inuit-base-spacing-unit * 11.25;
+    }
+  }
+
+  &.hero--medium {
+    .hero__background {
+      height: 40vh;
+    }
+  }
+
+  &.hero--large {
+    .hero__background {
+      height: 60vh;
+    }
+
+    // deprecated
+    .hero__image {
+      height: $inuit-base-spacing-unit * 12.5;
+    }
+  }
+}
+
+// deprecated
+.hero__background-video {
+  overflow: hidden;
+
+  .video {
+    min-height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translate(0%, -50%);
+
+    &::before {
+      content: "";
+      display: block;
+      height: 0px;
+      padding-bottom: 57%;
+    }
+
+    video {
+      width: auto;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translate(-50%, 0%);
+    }
+  }
+}
+
+// deprecated
+.hero--bg-left > .hero__background {
+  @include media-query(palm) {
+    background-position: top left;
+  }
+}
+
+// deprecated
+.hero--bg-right > .hero__background {
+  @include media-query(palm) {
+    background-position: top right;
+  }
+}
+
+// deprecated
+.hero__overlay.box {
+  z-index: 1;
+
+  & > .box {
+    width: 50%;
+
+    @include media-query(palm) {
+      width: 100%;
+    }
+  }
+}
+
+.hero--mobile-separator {
+  @include media-query(palm) {
+    border-bottom: 1px solid $border-color;
+    margin-bottom: $inuit-base-spacing-unit;
+  }
+}
